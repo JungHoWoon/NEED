@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BiListPlus, BiSolidCart, BiListUl } from 'react-icons/bi';
 import styles from './Navbar.module.css';
+import { login } from '../../api/firebase';
 
 export default function Navbar() {
   return (
@@ -19,7 +20,9 @@ export default function Navbar() {
         <Link to='/products/new' className={styles.button}>
           <BiListPlus />
         </Link>
-        <button className={styles.login}>Login</button>
+        <button className={styles.login} onClick={login}>
+          Login
+        </button>
       </nav>
     </header>
   );
