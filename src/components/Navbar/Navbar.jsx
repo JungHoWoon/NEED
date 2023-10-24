@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BiListPlus, BiSolidCart, BiListUl } from 'react-icons/bi';
 import styles from './Navbar.module.css';
-import { login } from '../../api/firebase';
+import { login, logout, onUserStateChange } from '../../api/firebase';
 
 export default function Navbar() {
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    onUserStateChange((user) => {
+      setUser(user);
+    });
+  }, []);
+
+  const handleLogin = () => {
+    login().then(setUser);
+  };
+
+  const handleLogout = () => {
+    logout().then(setUser);
+  };
+
   return (
     <header className={styles.header}>
       <Link to='/' className={styles.name}>
@@ -20,8 +36,11 @@ export default function Navbar() {
         <Link to='/products/new' className={styles.button}>
           <BiListPlus />
         </Link>
-        <button className={styles.login} onClick={login}>
-          Login
+        <button
+          className={styles.login}
+          onClick={!user ? handleLogin : handleLogout}
+        >
+          {!user ? 'Login' : 'Logout'}
         </button>
       </nav>
     </header>
