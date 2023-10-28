@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { BiListPlus, BiSolidCart, BiListUl } from 'react-icons/bi';
 import styles from './Navbar.module.css';
-import { login, logout, onUserStateChange } from '../../api/firebase';
 import User from '../User/User';
+import { useUserContext } from '../../context/userContext';
 
 export default function Navbar() {
-  const [user, setUser] = useState();
-
-  useEffect(() => {
-    onUserStateChange(setUser);
-  }, []);
+  const { user, login, logout } = useUserContext();
 
   return (
     <header className={styles.header}>
@@ -21,9 +17,11 @@ export default function Navbar() {
         <Link to='/products' className={styles.button}>
           <BiListUl />
         </Link>
-        <Link to='/carts' className={styles.button}>
-          <BiSolidCart />
-        </Link>
+        {user && (
+          <Link to='/carts' className={styles.button}>
+            <BiSolidCart />
+          </Link>
+        )}
         {user && user.isAdmin && (
           <Link to='/products/new' className={styles.button}>
             <BiListPlus />
