@@ -24,17 +24,12 @@ provider.setCustomParameters({
   prompt: 'select_account',
 });
 
-export async function login() {
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      const user = result.user;
-      return user;
-    })
-    .catch((error) => alert('에러 발생!'));
+export function login() {
+  signInWithPopup(auth, provider).catch((error) => alert('에러 발생!'));
 }
 
-export async function logout() {
-  return signOut(auth).then(() => null);
+export function logout() {
+  signOut(auth).catch((error) => alert('에러 발생!'));
 }
 
 export function onUserStateChange(cb) {

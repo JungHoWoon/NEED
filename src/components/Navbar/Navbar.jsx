@@ -9,18 +9,8 @@ export default function Navbar() {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    onUserStateChange((user) => {
-      setUser(user);
-    });
+    onUserStateChange(setUser);
   }, []);
-
-  const handleLogin = () => {
-    login().then(setUser);
-  };
-
-  const handleLogout = () => {
-    logout().then(setUser);
-  };
 
   return (
     <header className={styles.header}>
@@ -40,10 +30,7 @@ export default function Navbar() {
           </Link>
         )}
         {user && <User user={user} />}
-        <button
-          className={styles.login}
-          onClick={!user ? handleLogin : handleLogout}
-        >
+        <button className={styles.login} onClick={!user ? login : logout}>
           {!user ? 'Login' : 'Logout'}
         </button>
       </nav>
