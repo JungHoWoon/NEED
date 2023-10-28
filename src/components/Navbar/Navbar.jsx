@@ -34,9 +34,11 @@ export default function Navbar() {
         <Link to='/carts' className={styles.button}>
           <BiSolidCart />
         </Link>
-        <Link to='/products/new' className={styles.button}>
-          <BiListPlus />
-        </Link>
+        {user && user.isAdmin && (
+          <Link to='/products/new' className={styles.button}>
+            <BiListPlus />
+          </Link>
+        )}
         {user && <User user={user} />}
         <button
           className={styles.login}
