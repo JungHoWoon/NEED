@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { BiListPlus, BiSolidCart, BiListUl } from 'react-icons/bi';
 import styles from './Navbar.module.css';
 import { login, logout, onUserStateChange } from '../../api/firebase';
+import User from '../User/User';
 
 export default function Navbar() {
   const [user, setUser] = useState();
@@ -36,6 +37,7 @@ export default function Navbar() {
         <Link to='/products/new' className={styles.button}>
           <BiListPlus />
         </Link>
+        {user && <User user={user} />}
         <button
           className={styles.login}
           onClick={!user ? handleLogin : handleLogout}
