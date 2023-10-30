@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { uploadImage } from '../api/upload';
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
@@ -14,10 +15,17 @@ export default function NewProduct() {
     setProduct((product) => ({ ...product, [name]: value }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    uploadImage(file).then((url) => {
+      console.log(url);
+    });
+  };
+
   return (
     <section>
       {file && <img src={URL.createObjectURL(file)} alt='file' />}
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type='file'
           accept='image/*'
