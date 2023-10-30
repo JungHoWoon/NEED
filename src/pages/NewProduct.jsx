@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { uploadImage } from '../api/upload';
+import { addNewProduct } from '../api/firebase';
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
 
   const [file, setFile] = useState();
+
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -17,13 +20,24 @@ export default function NewProduct() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    uploadImage(file).then((url) => {
-      console.log(url);
-    });
+    setIsUploading(true);
+    uploadImage(file) //
+      .then((url) => {
+        addNewProduct(product, url) //
+          .then(() => {
+            alert(`${product.title}를 성공적으로 등록하였습니다.👍`);
+            setFile();
+            setProduct({});
+          });
+      })
+      .finally(() => {
+        setIsUploading(false);
+      });
   };
 
   return (
     <section>
+      <h2>신규 상품 등록</h2>
       {file && <img src={URL.createObjectURL(file)} alt='file' />}
       <form onSubmit={handleSubmit}>
         <input
@@ -40,6 +54,7 @@ export default function NewProduct() {
           required
           placeholder='제품명을 입력하세요.'
           onChange={handleChange}
+          autoComplete='off'
         />
         <input
           type='number'
@@ -49,6 +64,7 @@ export default function NewProduct() {
           placeholder='가격을 입력하세요.'
           min='0'
           onChange={handleChange}
+          autoComplete='off'
         />
         <input
           type='text'
@@ -57,6 +73,7 @@ export default function NewProduct() {
           required
           placeholder='카테고리를 입력하세요.'
           onChange={handleChange}
+          autoComplete='off'
         />
         <input
           type='text'
@@ -65,6 +82,7 @@ export default function NewProduct() {
           required
           placeholder='제품 설명을 입력하세요.'
           onChange={handleChange}
+          autoComplete='off'
         />
         <input
           type='text'
@@ -73,8 +91,11 @@ export default function NewProduct() {
           required
           placeholder='상품 옵션은 (,)로 구분해 주세요'
           onChange={handleChange}
+          autoComplete='off'
         />
-        <button>등록하기</button>
+        <button disabled={isUploading}>
+          {isUploading ? '업로드중....' : '등록하기'}
+        </button>
       </form>
     </section>
   );
