@@ -5,17 +5,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import styles from './Banner.module.css';
 
 export default class AutoPlayMethods extends Component {
-  constructor(props) {
-    super(props);
-    this.play = this.play.bind(this);
-    this.pause = this.pause.bind(this);
-  }
-  play() {
-    this.slider.slickPlay();
-  }
-  pause() {
-    this.slider.slickPause();
-  }
   render() {
     const settings = {
       dots: false,
@@ -23,7 +12,7 @@ export default class AutoPlayMethods extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       autoplay: true,
-      autoplaySpeed: 3000,
+      autoplaySpeed: 2000,
       arrows: false,
       cssEase: 'liner',
     };
