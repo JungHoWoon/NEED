@@ -7,10 +7,10 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
 import AllProducts from './pages/AllProducts';
-import ProductDetail from './pages/ProductDetail';
 import MyCart from './pages/MyCart';
 import ProtectedRoute from './pages/ProtectedRoute';
 import NewProduct from './pages/NewProduct/NewProduct';
+import ProductDetail from './pages/ProductDetail/ProductDetail';
 
 const router = createBrowserRouter([
   {
