@@ -70,3 +70,7 @@ export async function getProducts() {
     return [];
   });
 }
+
+export async function addOrUpdateCart(userId, product) {
+  return set(ref(database, `carts/${userId}/${product.id}`), product);
+}
