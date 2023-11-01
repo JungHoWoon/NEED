@@ -1,0 +1,12 @@
+.cart {
+  position: relative;
+}
+
+.quantity {
+  position: absolute;
+
+  top: -15px;
+  left: 35px;
+
+  font-size: 15px;
+}

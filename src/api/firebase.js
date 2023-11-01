@@ -71,6 +71,16 @@ export async function getProducts() {
   });
 }
 
+export async function getCart(userId) {
+  return get(ref(database, `carts/${userId}`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      const itmes = snapshot.val();
+      return Object.values(itmes);
+    }
+    return {};
+  });
+}
+
 export async function addOrUpdateCart(userId, product) {
   return set(ref(database, `carts/${userId}/${product.id}`), product);
 }

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BiListPlus, BiSolidCart, BiListUl } from 'react-icons/bi';
+import { BiListPlus, BiListUl } from 'react-icons/bi';
 import styles from './Navbar.module.css';
 import User from '../User/User';
 import { useUserContext } from '../../context/userContext';
+import CartStatus from '../CartStatus/CartStatus';
 
 export default function Navbar() {
   const { user, login, logout } = useUserContext();
@@ -19,7 +20,7 @@ export default function Navbar() {
         </Link>
         {user && (
           <Link to='/carts' className={styles.button}>
-            <BiSolidCart />
+            <CartStatus />
           </Link>
         )}
         {user && user.isAdmin && (
