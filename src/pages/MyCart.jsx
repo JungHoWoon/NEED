@@ -45,6 +45,7 @@ export default function MyCart() {
             <FaEquals />
             <PriceCard text='결제 금액' price={totalPrice + shipping} />
           </div>
+          <button>주문하기</button>
         </>
       )}
     </section>
