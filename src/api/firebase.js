@@ -2,9 +2,9 @@ import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   signInWithPopup,
-  GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
+  GithubAuthProvider,
 } from 'firebase/auth';
 import { getDatabase, ref, get, set, remove } from 'firebase/database';
 import { v4 as uuidv4 } from 'uuid';
@@ -18,7 +18,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-const provider = new GoogleAuthProvider();
+const provider = new GithubAuthProvider();
 const database = getDatabase(app);
 
 provider.setCustomParameters({
