@@ -4,23 +4,24 @@ import {
   AiFillPlusCircle,
   AiFillDelete,
 } from 'react-icons/ai';
-import { addOrUpdateCart, removeCart } from '../../api/firebase';
 import styles from './CartItem.module.css';
+import useCart from '../../hooks/useCart';
 
 export default function CartItem({
   product,
-  uid,
   product: { id, image, title, option, quantity, price },
 }) {
+  const { addOrUpdateToItem, removeItem } = useCart();
+
   const handleMinus = () => {
     if (quantity < 2) return;
-    addOrUpdateCart(uid, { ...product, quantity: quantity - 1 });
+    addOrUpdateToItem.mutate({ ...product, quantity: quantity - 1 });
   };
 
   const handlePlus = () =>
-    addOrUpdateCart(uid, { ...product, quantity: quantity + 1 });
+    addOrUpdateToItem.mutate({ ...product, quantity: quantity + 1 });
 
-  const handleDelete = () => removeCart(uid, id);
+  const handleDelete = () => removeItem.mutate(id);
 
   const productPrice = parseInt(price);
 
