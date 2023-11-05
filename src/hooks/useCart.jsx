@@ -3,9 +3,7 @@ import { useUserContext } from '../context/userContext';
 import { addOrUpdateCart, getCart, removeCart } from '../api/firebase';
 
 export default function useCart() {
-  const {
-    user: { uid },
-  } = useUserContext();
+  const { uid } = useUserContext();
 
   const queryClient = useQueryClient();
 
